@@ -9,6 +9,8 @@ namespace Persistence.Models
 
         public string Name { get; set; }
 
+        public bool IsCompleted { get; set; }
+
         [Required]
         public string ApplicationUserId { get; set; }
 
