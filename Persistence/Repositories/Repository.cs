@@ -15,9 +15,9 @@ namespace Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public Task Add(T entity)
+        public async Task Add(T entity)
         {
-            throw new NotImplementedException();
+            await _dbContext.AddAsync(entity);
         }
 
         public Task Delete(string id)
