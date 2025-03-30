@@ -38,7 +38,9 @@ namespace Persistence.Repositories
 
         public Task Update(T entity)
         {
-            
+            _dbSet.Update(entity);
+            _dbContext.SaveChanges();
+            return Task.CompletedTask;
         }
     }
 }
