@@ -20,12 +20,13 @@ namespace Persistence.Repositories
             await _dbContext.AddAsync(entity);
         }
 
-        public Task Delete(string id)
+        public async Task Delete(string id)
         {
-            throw new NotImplementedException();
+            T existing = await Get(id);
+            _dbContext.Remove(existing);
         }
 
-        public Task<T> Get(string id)
+        public async Task<T> Get(string id)
         {
             throw new NotImplementedException();
         }
