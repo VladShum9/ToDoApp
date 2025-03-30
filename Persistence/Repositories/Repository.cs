@@ -30,14 +30,15 @@ namespace Persistence.Repositories
             return result;
         }
 
-        public Task<List<T>> GetAll()
+        public async Task<List<T>> GetAll()
         {
-            throw new NotImplementedException();
+            List<T> result = _dbSet.ToList();
+            return result;
         }
 
         public Task Update(T entity)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
