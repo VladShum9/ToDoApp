@@ -9,6 +9,12 @@ namespace Persistence.Repositories
 {
     public class Repository<T> : IRepository<T>
     {
+        private readonly ToDoAppDbContext _dbContext;
+        public Repository(ToDoAppDbContext dbContext) 
+        {
+            _dbContext = dbContext;
+        }
+
         public Task Add(T entity)
         {
             throw new NotImplementedException();
