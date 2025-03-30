@@ -26,7 +26,8 @@ namespace Persistence.Repositories
 
         public async Task<T> Get(string id)
         {
-            throw new NotImplementedException();
+            T result = await _dbSet.FindAsync(id);
+            return result;
         }
 
         public Task<List<T>> GetAll()
