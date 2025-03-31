@@ -43,9 +43,9 @@ namespace Backend.Services
             return task;
         }
 
-        public Task Update(ToDoTask task)
+        public async Task Update(ToDoTask task)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.TaskRepository.Update(task);
         }
     }
 }
