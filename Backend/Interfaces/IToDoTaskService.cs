@@ -10,7 +10,7 @@ namespace Backend.Interfaces
 {
     public interface IToDoTaskService
     {
-        public Task Add(ToDoTask task);
+        public Task<ToDoTask> Add(ToDoTask task);
         public Task Delete(string id);
         public Task Update(ToDoTask task);
         public Task<List<ToDoTask>> GetAll();

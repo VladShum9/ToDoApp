@@ -1,5 +1,6 @@
 ﻿using Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Models;
 
 namespace Persistence.Repositories
 {
@@ -13,9 +14,10 @@ namespace Persistence.Repositories
             _dbSet = dbContext.Set<T>();
         }
 
-        public async Task Add(T entity)
+        public async Task<T> Add(T entity)
         {
             await _dbSet.AddAsync(entity);
+            return entity;
         }
 
         public async Task Delete(string id)

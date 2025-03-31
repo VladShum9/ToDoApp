@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace Backend
 {
-    class UnitOfWork
+    public class UnitOfWork
     {
         private readonly ToDoAppDbContext _dbContext;
 
-        private readonly IRepository<ToDoTask> _taskRepository;
+        public readonly IRepository<ToDoTask> TaskRepository;
 
         UnitOfWork(ToDoAppDbContext dbContext, IRepository<ToDoTask> taskRepository)
         {
             _dbContext = dbContext;
-            _taskRepository = taskRepository;
+            TaskRepository = taskRepository;
         }
 
-        public void SaveChanges()
+        public async void SaveChanges()
         {
             _dbContext.SaveChanges();
         }

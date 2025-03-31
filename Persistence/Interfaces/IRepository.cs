@@ -11,7 +11,7 @@ namespace Persistence.Interfaces
         Task Delete(string id);
         Task Update(T entity);
         Task<T> Get(string id);
-        Task Add(T entity);
+        Task<T> Add(T entity);
         Task<List<T>> GetAll();
     }
 }
