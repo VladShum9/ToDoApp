@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.Models
 {
-    class OperationResult<T>
+    public class OperationResult<T>
     {
         public bool Success { get; set; }
         public string Message { get; set; }

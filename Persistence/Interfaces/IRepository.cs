@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Persistence.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Persistence.Interfaces
         Task Delete(string id);
         Task Update(T entity);
         Task<T> Get(string id);
-        Task<T> Add(T entity);
+        Task<OperationResult<T>> Add(T entity);
         Task<List<T>> GetAll();
     }
 }

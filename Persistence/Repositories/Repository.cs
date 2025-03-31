@@ -14,10 +14,17 @@ namespace Persistence.Repositories
             _dbSet = dbContext.Set<T>();
         }
 
-        public async Task<T> Add(T entity)
+        public async Task<OperationResult<T>> Add(T entity)
         {
-            await _dbSet.AddAsync(entity);
-            return entity;
+            try
+            {
+                await _dbSet.AddAsync(entity);
+                return OperationResult<T>.SuccessResult(entity, "Entity added successfully");
+            }
+            catch (Exception ex)
+            {
+                return OperationResult<T>.Failure($"Error adding entity {ex.Message}");
+            }
         }
 
         public async Task Delete(string id)
