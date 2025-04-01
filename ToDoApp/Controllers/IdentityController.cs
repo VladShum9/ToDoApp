@@ -16,11 +16,13 @@ namespace ToDoApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public IdentityController(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public IdentityController(UserManager<ApplicationUser> userManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
 
         [HttpPost]
@@ -63,6 +65,47 @@ namespace ToDoApp.Controllers
             }
 
             return Unauthorized();
+        }
+
+        [HttpPost]
+        [Route("register-user")]
+        public async Task<IActionResult> RegisterUser([FromBody] RegistrationModel model)
+        {
+            var userExists = await _userManager.FindByEmailAsync(model.Email);
+            if (userExists != null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+            }
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Username
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+            }
+
+            if (!await _roleManager.RoleExistsAsync("User"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("User"));
+            }
+
+            if (await _roleManager.RoleExistsAsync("User"))
+            {
+                await _userManager.AddToRoleAsync(user, "User");
+            }
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var registeredUser = await _userManager.FindByEmailAsync(model.Email);
+            return Ok(new
+            {
+                userId = user.Id,
+                userRole = userRoles
+            });
         }
     }
 }
