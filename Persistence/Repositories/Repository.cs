@@ -31,9 +31,9 @@ namespace Persistence.Repositories
         {
             try
             {
-                T existing = await Get(id);
-                _dbSet.Remove(existing);
-                return OperationResult<T>.SuccessResult(existing, "Enity was deleted successfully" );
+                OperationResult<T> existing = await Get(id);
+                _dbSet.Remove(existing.Data);
+                return OperationResult<T>.SuccessResult(existing.Data, "Enity was deleted successfully" );
             }
             catch (Exception ex) {
                 return OperationResult<T>.Failure($"Error adding entity {ex.Message}");

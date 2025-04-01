@@ -13,6 +13,6 @@ namespace Persistence.Interfaces
         Task<OperationResult<T>> Update(T entity);
         Task<OperationResult<T>> Get(string id);
         Task<OperationResult<T>> Add(T entity);
-        Task<List<OperationResult<T>>> GetAll();
+        Task<OperationResult<List<T>>> GetAll();
     }
 }

@@ -24,28 +24,28 @@ namespace Backend.Services
             return result;
         }
 
-        public Task Delete(string id)
+        public async Task<OperationResult<ToDoTask>> Delete(string id)
         {
            if(id == null) throw new ArgumentNullException("id is null");
-           Task result = _unitOfWork.TaskRepository.Delete(id);
+           OperationResult<ToDoTask> result = await _unitOfWork.TaskRepository.Delete(id);
            return result;
         }
 
-        public Task<List<ToDoTask>> GetAll()
+        public async Task<OperationResult<List<ToDoTask>>> GetAll()
         {
-            return _unitOfWork.TaskRepository.GetAll();
+            return await _unitOfWork.TaskRepository.GetAll();
         }
 
-        public Task<ToDoTask> GetById(string id)
+        public async Task<OperationResult<ToDoTask>> GetById(string id)
         {
             if(id == null) throw new ArgumentNullException("id is null");
-            Task<ToDoTask> task = _unitOfWork.TaskRepository.Get(id);
+            OperationResult<ToDoTask> task = await _unitOfWork.TaskRepository.Get(id);
             return task;
         }
 
-        public async Task Update(ToDoTask task)
+        public async Task<OperationResult<ToDoTask>> Update(ToDoTask task)
         {
-            await _unitOfWork.TaskRepository.Update(task);
+           return await _unitOfWork.TaskRepository.Update(task);
         }
     }
 }

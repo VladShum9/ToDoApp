@@ -11,9 +11,9 @@ namespace Backend.Interfaces
     public interface IToDoTaskService
     {
         public Task<OperationResult<ToDoTask>> Add(ToDoTask task);
-        public Task Delete(string id);
-        public Task Update(ToDoTask task);
-        public Task<List<ToDoTask>> GetAll();
-        public Task<ToDoTask> GetById(string id);
+        public Task<OperationResult<ToDoTask>> Delete(string id);
+        public Task<OperationResult<ToDoTask>> Update(ToDoTask task);
+        public Task<OperationResult<List<ToDoTask>>> GetAll();
+        public Task<OperationResult<ToDoTask>> GetById(string id);
     }
 }
