@@ -16,10 +16,10 @@ namespace Backend.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<ToDoTask> Add(ToDoTask task)
+        public async Task<OperationResult<ToDoTask>> Add(ToDoTask task)
         {
             if(task == null) throw new ArgumentNullException(nameof(task));
-            ToDoTask result = await _unitOfWork.TaskRepository.Add(task);
+            OperationResult<ToDoTask> result = await _unitOfWork.TaskRepository.Add(task);
             _unitOfWork.SaveChanges();
             return result;
         }
