@@ -27,29 +27,56 @@ namespace Persistence.Repositories
             }
         }
 
-        public async Task Delete(string id)
+        public async Task<OperationResult<T>> Delete(string id)
         {
-            T existing = await Get(id);
-            _dbSet.Remove(existing);
+            try
+            {
+                T existing = await Get(id);
+                _dbSet.Remove(existing);
+                return OperationResult<T>.SuccessResult(existing, "Enity was deleted successfully" );
+            }
+            catch (Exception ex) {
+                return OperationResult<T>.Failure($"Error adding entity {ex.Message}");
+            }
         }
 
-        public async Task<T> Get(string id)
+        public async Task<OperationResult<T>> Get(string id)
         {
-            T result = await _dbSet.FindAsync(id);
-            return result;
+            try
+            {
+                T result = await _dbSet.FindAsync(id);
+                return OperationResult<T>.SuccessResult(result, "Entity was found successfully");
+            }
+            catch (Exception ex)
+            {
+                return OperationResult<T>.Failure($"Error finding entity {ex.Message}");
+            }
         }
 
-        public async Task<List<T>> GetAll()
+        public async Task<OperationResult<List<T>>> GetAll()
         {
-            List<T> result = _dbSet.ToList();
-            return result;
+            try
+            {
+                List<T> result = _dbSet.ToList();
+                return OperationResult<List<T>>.SuccessResult(result, "List of all entities was found successfully");
+            }
+            catch (Exception ex)
+            {
+                return OperationResult<List<T>>.Failure($"Errror getting list of all entities {ex.Message}");
+            }
         }
 
-        public Task Update(T entity)
+        public async Task<OperationResult<T>> Update(T entity)
         {
-            _dbSet.Update(entity);
-            _dbContext.SaveChanges();
-            return Task.CompletedTask;
+            try
+            {
+                _dbSet.Update(entity);
+                return OperationResult<T>.SuccessResult(entity, "Entity was updated successfuly");
+            }
+            catch (Exception ex)
+            {
+                return OperationResult<T>.Failure($"Error updating entity {ex.Message}");
+            }
         }
     }
 }

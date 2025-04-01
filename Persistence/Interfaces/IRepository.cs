@@ -9,10 +9,10 @@ namespace Persistence.Interfaces
 {
     public interface IRepository<T>
     {
-        Task Delete(string id);
-        Task Update(T entity);
-        Task<T> Get(string id);
+        Task<OperationResult<T>> Delete(string id);
+        Task<OperationResult<T>> Update(T entity);
+        Task<OperationResult<T>> Get(string id);
         Task<OperationResult<T>> Add(T entity);
-        Task<List<T>> GetAll();
+        Task<List<OperationResult<T>>> GetAll();
     }
 }
