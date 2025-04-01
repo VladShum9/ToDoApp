@@ -13,12 +13,14 @@ namespace Backend
     {
         private readonly ToDoAppDbContext _dbContext;
 
+        public readonly IRepository<ApplicationUser> UserRepository;
         public readonly IRepository<ToDoTask> TaskRepository;
 
-        UnitOfWork(ToDoAppDbContext dbContext, IRepository<ToDoTask> taskRepository)
+        public UnitOfWork(ToDoAppDbContext dbContext, IRepository<ToDoTask> taskRepository, IRepository<ApplicationUser> userRepository)
         {
             _dbContext = dbContext;
             TaskRepository = taskRepository;
+            UserRepository = userRepository;
         }
 
         public async void SaveChanges()

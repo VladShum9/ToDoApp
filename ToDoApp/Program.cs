@@ -1,10 +1,12 @@
 using Backend;
 using Backend.Interfaces;
 using Backend.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Persistence;
 using Persistence.Interfaces;
 using Persistence.Models;
 using Persistence.Repositories;
-using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<ToDoAppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ToDoAppDbContext>()
+                .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IRepository<ApplicationUser>, Repository<ApplicationUser>>();
 builder.Services.AddScoped<IRepository<ToDoTask>, Repository<ToDoTask>>();

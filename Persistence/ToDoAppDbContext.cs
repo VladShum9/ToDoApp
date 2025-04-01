@@ -7,7 +7,7 @@ namespace Persistence
 {
     public class ToDoAppDbContext : IdentityDbContext<IdentityUser>
     {
-        public Microsoft.EntityFrameworkCore.DbSet<ToDoTask> toDoTasks { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<ToDoTask> ToDoTasks { get; set; }
 
         public ToDoAppDbContext(DbContextOptions<ToDoAppDbContext> options) : base(options) 
         {
