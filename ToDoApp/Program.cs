@@ -7,6 +7,7 @@ using Persistence;
 using Persistence.Interfaces;
 using Persistence.Models;
 using Persistence.Repositories;
+using ToDoApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(
+    typeof(PresentationMappingProfile)
+);
 
 builder.Services.AddDbContext<ToDoAppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
