@@ -19,6 +19,7 @@ namespace Backend.Services
         public async Task<OperationResult<ToDoTask>> Add(ToDoTask task)
         {
             if(task == null) throw new ArgumentNullException(nameof(task));
+            task.Id = Guid.NewGuid().ToString();
             OperationResult<ToDoTask> result = await _unitOfWork.TaskRepository.Add(task);
             _unitOfWork.SaveChanges();
             return result;

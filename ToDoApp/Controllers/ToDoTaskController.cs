@@ -1,6 +1,10 @@
-﻿using Backend.Interfaces;
+﻿using AutoMapper;
+using Backend.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Persistence.Models;
+using ToDoApp.Viewmodels;
 
 namespace ToDoApp.Controllers
 {
@@ -9,20 +13,25 @@ namespace ToDoApp.Controllers
     public class ToDoTaskController : ControllerBase
     {
         private readonly IToDoTaskService _toDoTaskService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMapper _mapper;
 
-        public ToDoTaskController(IToDoTaskService toDoTaskService)
+        public ToDoTaskController(IToDoTaskService toDoTaskService, UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _toDoTaskService = toDoTaskService;
+            _userManager = userManager;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<OperationResult<ToDoTask>> Add(ToDoTask toDoTask)
+        public async Task<OperationResult<ToDoTask>> Add(ToDoTaskModel model)
         {
-            if (toDoTask == null)
+            var user = await _userManager.FindByIdAsync(model.ApplicationUserId);
+            if (user == null)
             {
-                throw new ArgumentNullException(nameof(toDoTask));
+                return OperationResult<ToDoTask>.Failure("User does not exist.");
             }
-
+            ToDoTask toDoTask = _mapper.Map<ToDoTask>(model);
             return await _toDoTaskService.Add(toDoTask);
         }
 
@@ -49,13 +58,15 @@ namespace ToDoApp.Controllers
         }
 
         [HttpPut]
-        public async Task<OperationResult<ToDoTask>> Update(ToDoTask toDoTask)
+        public async Task<OperationResult<ToDoTask>> Update(ToDoTaskModel model)
         {
-            if(toDoTask == null)
+            var user = await _userManager.FindByIdAsync(model.ApplicationUserId);
+            if (user == null)
             {
-                throw new ArgumentNullException(nameof(toDoTask));
+                return OperationResult<ToDoTask>.Failure("User does not exist.");
             }
-            
+            ToDoTask toDoTask = _mapper.Map<ToDoTask>(model);
+
             return await _toDoTaskService.Update(toDoTask);
         }
     }
