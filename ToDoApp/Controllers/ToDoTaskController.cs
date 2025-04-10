@@ -4,7 +4,7 @@ using Persistence.Models;
 
 namespace ToDoApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/toDoTasks")]
     [ApiController]
     public class ToDoTaskController : ControllerBase
     {
@@ -16,7 +16,6 @@ namespace ToDoApp.Controllers
         }
 
         [HttpPost]
-        [Route("Add")]
         public async Task<OperationResult<ToDoTask>> Add(ToDoTask toDoTask)
         {
             if (toDoTask == null)
@@ -27,8 +26,7 @@ namespace ToDoApp.Controllers
             return await _toDoTaskService.Add(toDoTask);
         }
 
-        [HttpDelete]
-        [Route("Delete")]
+        [HttpDelete("{id}")]
         public async Task<OperationResult<ToDoTask>> Delete(string id)
         {
             if (!string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
@@ -36,8 +34,7 @@ namespace ToDoApp.Controllers
             return await _toDoTaskService.Delete(id);
         }
 
-        [HttpGet]
-        [Route("GetById")]
+        [HttpGet("{id}")]
         public async Task<OperationResult<ToDoTask>> GetById(string id)
         {
             if(!string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
@@ -46,14 +43,12 @@ namespace ToDoApp.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
         public async Task<OperationResult<List<ToDoTask>>> GetAll()
         {
             return await _toDoTaskService.GetAll();
         }
 
         [HttpPut]
-        [Route("Update")]
         public async Task<OperationResult<ToDoTask>> Update(ToDoTask toDoTask)
         {
             if(toDoTask == null)
