@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ToDoTaslService from "../services/ToDoTaskService"
+import { getAllTasks } from '../services/ToDoTaskService';
 
 export default function HomePage(){
     const [tasks, setTasks] = useState([]);
@@ -9,7 +9,7 @@ export default function HomePage(){
     useEffect(() => {
         const fetchTasks = async() => {
             try{
-                const fetchTasks = await ToDoTaskService.getAllTasks();
+                const fetchTasks = await getAllTasks();
                 setTasks(fetchTasks);
             } catch(error){
                 setError("Failed to load tasks")

@@ -46,7 +46,9 @@ namespace Backend.Services
 
         public async Task<OperationResult<ToDoTask>> Update(ToDoTask task)
         {
-           return await _unitOfWork.TaskRepository.Update(task);
+            OperationResult<ToDoTask> operationResult = await _unitOfWork.TaskRepository.Update(task);
+            _unitOfWork.SaveChanges();
+            return operationResult;
         }
     }
 }
