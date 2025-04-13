@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllTasks } from '../services/ToDoTaskService';
+import TaskItem from '../components/TaskItem';
 
 export default function HomePage(){
     const [tasks, setTasks] = useState([]);
@@ -34,7 +35,10 @@ export default function HomePage(){
                 ) : (
                     <ul>
                         {tasks.map((task) => (
-                            <li key ={task.id}>{task.name}</li>
+                            <TaskItem
+                                key={task.id}
+                                task={task}
+                            />
                         ))}
                     </ul>
                 )
