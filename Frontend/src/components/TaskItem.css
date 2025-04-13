@@ -1,0 +1,23 @@
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .checked {
+    background-color: #4caf50;
+  }
+  
+  .task-name.completed {
+    text-decoration: line-through;
+    color: gray;
+  }
