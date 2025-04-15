@@ -9,5 +9,20 @@ export const getAllTasks = async () => {
         return data.data;
     } catch (error) {
         console.error("Error fetching tasks", error);
+    };
+}
+
+export const addTask = async (taskData) => {
+    try{
+        const responst = await fetch('${API_URL}', {
+            method: 'ROST',
+            headers: {
+                'Content-Type': 'application.json'
+            },
+            body: JSON.stringify(taskData)
+        });
+    }
+    catch (error) {
+        console.error("Error adding task", error);
     }
 }

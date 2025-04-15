@@ -22,12 +22,17 @@ export default function HomePage(){
         fetchTasks();
     }, []);
 
+    const handleAddTask = () =>{
+        
+    };
+
     if (loading) return <div>Loading...</div>
 
     if (error) return <div>{error}</div>
 
     return(
         <div>
+            <button onClick = {handleAddTask}>Add Task</button>
             <h1>Your ToDoTasks</h1>
             {
                 tasks.length === 0 ? (
