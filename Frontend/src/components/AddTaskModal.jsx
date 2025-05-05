@@ -23,10 +23,6 @@ export default function AddTaskModal({onClose, onSubmit}) {
                         Title:
                         <input name="name" required />
                     </label>
-                    <label>
-                        Description:
-                        <textarea name="description" />
-                    </label>
                     <button type="submit">Save</button>
                     <button type="button" onClick={onClose}>Cancel</button>
                 </form>
