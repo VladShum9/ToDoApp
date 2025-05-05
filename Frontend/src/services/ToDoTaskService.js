@@ -10,19 +10,22 @@ export const getAllTasks = async () => {
     } catch (error) {
         console.error("Error fetching tasks", error);
     };
-}
+};
 
 export const addTask = async (taskData) => {
-    try{
-        const responst = await fetch('${API_URL}', {
-            method: 'ROST',
+    try {
+        const response = await fetch(`${API_URL}`, {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application.json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(taskData)
         });
-    }
-    catch (error) {
+        const result = await response.json();
+        console.log("result result", result)
+        return result.data;
+    } catch (error) {
         console.error("Error adding task", error);
     }
-}
+};
+
