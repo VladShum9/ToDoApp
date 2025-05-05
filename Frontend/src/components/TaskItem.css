@@ -1,23 +1,39 @@
 .task-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 8px 0;
+  transition: background-color 0.3s;
+}
+
+.task-name {
+  flex: 1;
+  font-size: 16px;
+  color: #333;
+  word-break: break-word;
+}
+
+.task-name.completed {
+  text-decoration: line-through;
+  color: green;
+  font-weight: bold;
+}
+
 .checkbox {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #333;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .checked {
-    background-color: #4caf50;
-  }
-  
-  .task-name.completed {
-    text-decoration: line-through;
-    color: gray;
-  }
+  width: 20px;
+  height: 20px;
+  border: 2px solid gray;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+.checkbox.checked {
+  background-color: green;
+  border-color: green;
+}

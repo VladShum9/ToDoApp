@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllTasks, addTask } from '../services/ToDoTaskService';
+import { getAllTasks, addTask, updateTask } from '../services/ToDoTaskService';
 import TaskItem from '../components/TaskItem';
 import AddTaskModal from "../components/AddTaskModal";
 
@@ -27,6 +27,22 @@ export default function HomePage(){
     const handleAddTask = () =>{
         setShowAddTaskModal(true);
     };
+
+    const handleToggleComplete = async (task) => {
+        const updatedTask = {...task, isCompleted: !task.isCompleted};
+
+        try {
+            await updateTask(updatedTask);
+            setTasks(prevTasks =>
+                prevTasks.map(t =>
+                    t.id === updatedTask.id ? updatedTask : t
+                )
+            );
+        } catch (error) {
+            console.error("Failed to update task", error);
+
+        }
+    }
 
     const handleModalSubmit = async (newTask) => {
         try {
@@ -61,6 +77,7 @@ export default function HomePage(){
                             <TaskItem
                                 key={task.id}
                                 task={task}
+                                onToggle={handleToggleComplete}
                             />
                         ))}
                     </ul>

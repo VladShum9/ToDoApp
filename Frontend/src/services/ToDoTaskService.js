@@ -22,10 +22,26 @@ export const addTask = async (taskData) => {
             body: JSON.stringify(taskData)
         });
         const result = await response.json();
-        console.log("result result", result)
         return result.data;
     } catch (error) {
         console.error("Error adding task", error);
+    }
+};
+
+export const updateTask = async (taskData) => {
+    try {
+        taskData.isComplited = false;
+        const response = await fetch(`${API_URL}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(taskData)
+        });
+        const result = response.json();
+        return result.data;
+    } catch (error) {
+        console.error("Error updating task", error)
     }
 };
 

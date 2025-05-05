@@ -7,7 +7,8 @@ const TaskItem = ({ task, onDelete, onToggle}) => {
             <span className={`task-name ${task.isCompleted ? 'completed' : ''}`}>
                 {task.name}
             </span>
-            <div className={`checkbox ${task.isCompleted ? 'checked' : ''}`}></div>
+            <div className={`checkbox ${task.isCompleted ? 'checked' : ''}`}
+            onClick={() => onToggle(task)}></div>
         </li>
     )
 }
