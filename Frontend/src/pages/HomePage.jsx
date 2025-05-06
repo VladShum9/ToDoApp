@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllTasks, addTask, updateTask } from '../services/ToDoTaskService';
+import { getAllTasks, addTask, updateTask, deleteTask } from '../services/ToDoTaskService';
 import TaskItem from '../components/TaskItem';
 import AddTaskModal from "../components/AddTaskModal";
 
@@ -55,6 +55,17 @@ export default function HomePage(){
         }
     };
 
+    const handleDeleteTask = async (taskId) => {
+        try{
+            const response = await deleteTask(taskId)
+            if(response){
+                setTasks(prev => prev.filter(t => t.id !== taskId));
+            }
+        } catch (error) {
+            console.error("Failed to delete task", error);    
+        }
+    }
+
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error}</div>
 
@@ -78,6 +89,7 @@ export default function HomePage(){
                                 key={task.id}
                                 task={task}
                                 onToggle={handleToggleComplete}
+                                onDelete={handleDeleteTask}
                             />
                         ))}
                     </ul>
