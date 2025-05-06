@@ -38,7 +38,7 @@ namespace ToDoApp.Controllers
         [HttpDelete("{id}")]
         public async Task<OperationResult<ToDoTask>> Delete(string id)
         {
-            if (!string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
 
             return await _toDoTaskService.Delete(id);
         }
@@ -46,7 +46,7 @@ namespace ToDoApp.Controllers
         [HttpGet("{id}")]
         public async Task<OperationResult<ToDoTask>> GetById(string id)
         {
-            if(!string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
+            if(string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
 
             return await _toDoTaskService.GetById(id);
         }
