@@ -29,6 +29,7 @@ namespace Backend.Services
         {
            if(id == null) throw new ArgumentNullException("id is null");
            OperationResult<ToDoTask> result = await _unitOfWork.TaskRepository.Delete(id);
+           _unitOfWork.SaveChanges();
            return result;
         }
 
